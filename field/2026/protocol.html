@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nissai Field Protocol 2026</title>
+<style>
+@page {
+  size: A4;
+  margin: 16mm 14mm 16mm 14mm;
+  @bottom-left {
+    content: "Nissai Glacier / Sangvor — Field Measurement Protocol v1.6 (Sep 2026)";
+    font-family: "DejaVu Sans", sans-serif; font-size: 7pt; color: #7a7a72;
+  }
+  @bottom-right {
+    content: "p. " counter(page) " / " counter(pages);
+    font-family: "DejaVu Sans", sans-serif; font-size: 7pt; color: #7a7a72;
+  }
+}
+@page :first { @bottom-left { content: ""; } @bottom-right { content: ""; } }
+
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", "Helvetica", sans-serif;
+  font-size: 8.6pt; line-height: 1.42; color: #1a1a18; margin: 0;
+}
+h1, h2, h3, h4 { font-family: "DejaVu Sans", sans-serif; margin: 0; }
+
+/* ---------- cover ---------- */
+.cover { page-break-after: always; padding-top: 22mm; }
+.cover .eyebrow { font-size: 8pt; letter-spacing: .18em; text-transform: uppercase; color: #8a6a2f; font-weight: bold; }
+.cover h1 { font-size: 26pt; line-height: 1.1; margin: 6mm 0 3mm; letter-spacing: -.01em; }
+.cover .sub { font-size: 12pt; color: #4a4a44; margin-bottom: 10mm; }
+.cover .rule { height: 3px; background: #8a6a2f; width: 42mm; margin: 0 0 8mm; }
+.cover-meta { width: 100%; border-collapse: collapse; margin-top: 4mm; font-size: 8.4pt; }
+.cover-meta td { padding: 2.4mm 0; border-bottom: .4pt solid #ddddd6; vertical-align: top; }
+.cover-meta td:first-child { width: 34mm; color: #7a7a72; text-transform: uppercase; font-size: 7pt; letter-spacing: .08em; padding-top: 3mm; }
+.cover-foot { margin-top: 12mm; font-size: 7.6pt; color: #7a7a72; line-height: 1.6; }
+
+/* ---------- structure ---------- */
+h2.sop {
+  font-size: 13pt; margin: 0 0 1mm; padding: 0 0 2mm;
+  border-bottom: 2.2pt solid #1a1a18;
+}
+h2.sop .num {
+  display: inline-block; background: #1a1a18; color: #fff;
+  padding: .6mm 2.4mm; margin-right: 3mm; font-size: 9.5pt; vertical-align: 1px;
+}
+.sop-sub { font-size: 8pt; color: #7a7a72; margin: 2mm 0 4mm; }
+h3 { font-size: 9.6pt; margin: 5mm 0 2mm; color: #1a1a18; }
+h3::before { content: "▸ "; color: #8a6a2f; }
+h4 { font-size: 8.6pt; margin: 4mm 0 1.5mm; color: #4a4a44; text-transform: uppercase; letter-spacing: .06em; font-size: 7.4pt; }
+p { margin: 0 0 2.2mm; }
+.section { page-break-before: always; }
+
+/* ---------- tables ---------- */
+table.d { width: 100%; border-collapse: collapse; font-size: 7.4pt; margin: 2mm 0 3mm; }
+table.d th {
+  background: #2c2c28; color: #fff; text-align: left; padding: 1.5mm 1.8mm;
+  font-weight: bold; font-size: 6.8pt; text-transform: uppercase; letter-spacing: .04em;
+}
+table.d td { padding: 1.4mm 1.8mm; border-bottom: .4pt solid #e2e2db; vertical-align: top; }
+table.d tr:nth-child(even) td { background: #f7f7f3; }
+table.d td.n, table.d th.n { text-align: right; font-variant-numeric: tabular-nums; }
+table.d td.c, table.d th.c { text-align: center; }
+.mono { font-family: "DejaVu Sans Mono", monospace; font-size: 7pt; }
+
+/* fill-in field sheets */
+table.f { width: 100%; border-collapse: collapse; font-size: 7.2pt; margin: 2mm 0 3mm; }
+table.f th {
+  background: #efece2; color: #2c2c28; text-align: left; padding: 1.5mm 1.8mm;
+  border: .5pt solid #b8b2a0; font-size: 6.6pt; text-transform: uppercase; letter-spacing: .04em;
+}
+table.f td { padding: 2.6mm 1.8mm; border: .5pt solid #b8b2a0; }
+table.f td.pre { background: #f7f7f3; padding: 1.4mm 1.8mm; font-size: 7pt; }
+table.f td.n { text-align: right; font-variant-numeric: tabular-nums; }
+table.f td.c { text-align: center; }
+
+/* ---------- callouts ---------- */
+.crit, .note, .gap {
+  padding: 2.6mm 3mm; margin: 2.5mm 0 3mm; font-size: 7.8pt; line-height: 1.45;
+}
+.crit { background: #fbeeea; border-left: 3pt solid #a33a1c; }
+
+/* section-opening red banner */
+.banner {
+  border: 1.4pt solid #a33a1c; background: #fbeeea;
+  margin: 3mm 0 4mm; padding: 0; page-break-inside: avoid;
+}
+.banner .bar {
+  background: #a33a1c; color: #fff; padding: 1.8mm 3mm;
+  font-size: 7.6pt; font-weight: bold; letter-spacing: .09em; text-transform: uppercase;
+}
+.banner .body { padding: 3mm 3mm 2.6mm; font-size: 8pt; line-height: 1.46; color: #3d1a10; }
+.banner .body strong { color: #7d2a13; }
+.banner .body .plain { color: #1a1a18; }
+.banner .routes { margin: 2.4mm 0 0; padding: 2.4mm 0 0; border-top: .5pt solid #ddb3a6; }
+.banner .routes .r { margin-bottom: 1.8mm; padding-left: 6mm; text-indent: -6mm; }
+.banner .routes .n {
+  display: inline-block; background: #a33a1c; color: #fff; width: 4mm; height: 4mm;
+  text-align: center; font-size: 7pt; font-weight: bold; margin-right: 2mm; text-indent: 0;
+}
+.note { background: #f2f4f0; border-left: 3pt solid #5a7050; }
+.gap  { background: #fdf6e3; border-left: 3pt solid #b8891a; }
+.crit .lbl, .note .lbl, .gap .lbl {
+  display: block; font-size: 6.8pt; font-weight: bold; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 1mm;
+}
+.crit .lbl { color: #a33a1c; } .note .lbl { color: #4a6040; } .gap .lbl { color: #96700f; }
+
+/* ---------- checklist ---------- */
+ol.steps { margin: 1mm 0 3mm; padding-left: 5.5mm; }
+ol.steps li { margin-bottom: 1.6mm; padding-left: 1mm; }
+ul.tight { margin: 1mm 0 3mm; padding-left: 4.5mm; }
+ul.tight li { margin-bottom: 1.2mm; }
+.chk { list-style: none; padding-left: 0; margin: 1.5mm 0 3mm; }
+.chk li { margin-bottom: 1.8mm; padding-left: 6mm; text-indent: -6mm; }
+.chk li::before {
+  content: ""; display: inline-block; width: 3.2mm; height: 3.2mm;
+  border: .7pt solid #55554e; margin-right: 2.4mm; vertical-align: -.4mm;
+}
+.two-col { column-count: 2; column-gap: 7mm; }
+.kv { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin-bottom: 3mm; }
+.kv td { padding: 1.3mm 0; border-bottom: .4pt solid #e2e2db; }
+.kv td:first-child { width: 38mm; color: #6a6a62; }
+.sig { margin-top: 4mm; font-size: 7.2pt; color: #6a6a62; }
+.sig span { display: inline-block; border-bottom: .5pt solid #55554e; width: 42mm; margin: 0 6mm 0 1.5mm; }
+.tag { display: inline-block; background: #e6e2d6; padding: .3mm 1.6mm; font-size: 6.6pt;
+       text-transform: uppercase; letter-spacing: .05em; color: #5a5a52; }
+.tag.pri { background: #a33a1c; color: #fff; }
+.tag.new { background: #2c5f8a; color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="eyebrow">Cromo-Adapt · PAMIR · WSL-SLF / CRG-TAS</div>
+  <h1>Nissai Glacier<br>Field Measurement Protocol</h1>
+  <div class="rule"></div>
+  <div class="sub">Sangvor valley, Tajikistan — September 2026 campaign</div>
+
+  <table class="cover-meta">
+    <tr><td>Site</td><td><strong>Nissai Glacier catchment</strong>, Sangvor (formerly Tavildara) district, West Pamir / Petra Pervogo Range. Catchment instrumentation spans 2429–4616 m a.s.l.</td></tr>
+    <tr><td>AWS position</td><td class="mono">71.35392 E, 38.74287 N — 3909 m a.s.l. (WP51)</td></tr>
+    <tr><td>Established</td><td>2021 (AWS + GST network) · annual revisit each early September</td></tr>
+    <tr><td>Objectives</td><td>Five standing objectives — AWS, ground temperature network, catchment stream gauge, ablation stake network, glacier ice thermistor station</td></tr>
+    <tr><td>Partners</td><td>WSL-SLF (Switzerland) · Centre for Research of Glaciers, Tajik Academy of Sciences (CRG-TAS) · UZH / WGMS · UniFR</td></tr>
+    <tr><td>Funding</td><td>Swiss Polar Institute Flagship Programme PAMIR; SDC project Cromo-Adapt</td></tr>
+    <tr><td>Version</td><td>v1.6 — drafted from the 2024 and 2025 field reports and logger metadata, updated with the August 2026 station-status correspondence</td></tr>
+  </table>
+
+  <div class="cover-foot">
+    <strong>Purpose.</strong> This document is the standing measurement protocol for the Nissai site. It defines what is measured, how, in what units, and against which convention — so that a team member can execute each objective and record results in a form directly comparable with the 2021–2025 record. Logistics, permitting and safety planning are covered separately; only the hazards that bear directly on executing a measurement are reproduced here.<br><br>
+    <strong>Carry this document to basecamp.</strong> Field data sheets follow each SOP and are designed to be completed in pencil.
+  </div>
+</div>
+
+<!-- ============ 0. AT A GLANCE ============ -->
+<div>
+  <h2 class="sop"><span class="num">0</span>Campaign at a glance</h2>
+  <div class="sop-sub">Objectives, sequencing and the conditions that constrain them</div>
+
+  <h3>The five standing objectives</h3>
+  <table class="d">
+    <tr><th style="width:8mm">#</th><th style="width:52mm">Objective</th><th>2026 status and priority</th><th style="width:24mm" class="c">Est. time</th></tr>
+    <tr><td class="c">1</td><td><strong>CRG automated weather station</strong><br>Download + maintenance</td><td>Continuing. 5th full year of record. Includes timelapse card swap and <strong>two known faults to diagnose</strong> — satellite transmission gaps and snow-height dropouts. <span class="tag pri">core</span></td><td class="c">½ day</td></tr>
+    <tr><td class="c">2</td><td><strong>Ground temperature network</strong><br>GST readout + maintenance</td><td>Continuing. Geoprecision bedrock logger by radio; lower-catchment BLE loggers on the walk-out. Ridge BLE loggers <em>not</em> to be accessed. <span class="tag pri">core</span></td><td class="c">1½ days<br>(distributed)</td></tr>
+    <tr><td class="c">3</td><td><strong>Catchment stream gauge</strong><br>Re-establishment + gauging</td><td>Both 2022 gauges lost to the spring 2024 floods. Re-establishment on the road bridge is a <strong>key priority</strong> carried over from 2024 and 2025. <span class="tag new">rebuild</span></td><td class="c">½–1 day</td></tr>
+    <tr><td class="c">4</td><td><strong>Ablation stake network</strong><br>Read out + redrill</td><td>Continuing. 7 ablation stakes + 1 accumulation stake. <strong>All stakes are projected to need redrilling</strong> (see SOP 4). <span class="tag pri">core</span></td><td class="c">6 h on ice</td></tr>
+    <tr><td class="c">5</td><td><strong>Glacier ice station</strong><br>First annual readout</td><td>Installed 2025; 2026 is the <strong>first data recovery</strong>. Campbell CR350, read via the same Toughbook as the AWS. Expect to stabilise or recover it. <span class="tag new">first readout</span></td><td class="c">½ day</td></tr>
+  </table>
+
+  <h3>Reference itinerary (2025 pattern)</h3>
+  <table class="d">
+    <tr><th class="c" style="width:12mm">Day</th><th style="width:34mm">Location</th><th style="width:26mm">Overnight</th><th>Activity</th></tr>
+    <tr><td class="c">1</td><td>Dushanbe</td><td>Hotel</td><td>Arrive, OVIR registration, food, final details</td></tr>
+    <tr><td class="c">2</td><td>Travel</td><td>Tavildara / Sangvor</td><td>Drive Dushanbe → Tavildara or Sangvor</td></tr>
+    <tr><td class="c">3</td><td>Nissai</td><td>Tent</td><td>Drive to Nissai, camp <span class="mono">(SOP 3 — bridge gauge work fits here)</span></td></tr>
+    <tr><td class="c">4</td><td>Basecamp</td><td>Tent</td><td>Hike to basecamp, <strong>SOP 1</strong> station maintenance</td></tr>
+    <tr><td class="c">5</td><td>Basecamp</td><td>Tent</td><td><strong>SOP 2</strong> GST loggers, <strong>SOP 4</strong> ablation stakes</td></tr>
+    <tr><td class="c">6</td><td>Basecamp</td><td>Tent</td><td><strong>SOP 4</strong> stakes cont., <strong>SOP 5</strong> thermistor station</td></tr>
+    <tr><td class="c">7</td><td>Nissai → homestay</td><td>Homestay</td><td>Hike out — <strong>SOP 2</strong> lower-catchment BLE loggers en route</td></tr>
+    <tr><td class="c">8–10</td><td>Dushanbe</td><td>Hotel</td><td>Drive out, data backup and handover, flight</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">Hazards that constrain the measurements</span>
+    <strong>Rockfall.</strong> On 2 Sep 2025 at approx. 15:00 local, two large rockfalls released from the north wall south of basecamp at ~4450 m, in a warming permafrost zone during an exceptionally warm year. Smaller falls were audible throughout the visit — unusual relative to previous years. In 2025 sleeping tents were moved to the moraine on the <em>north</em> side of the valley. Reassess the runout on arrival before siting camp or working below that wall.<br><br>
+    <strong>Unstable block slope below the ridge loggers.</strong> Slope movement has increased as the glacier toe buttressing it melts out. The ridge BLE loggers (WP44 / 47 / 48) were deliberately <strong>not</strong> accessed in 2025. Do not climb this slope in 2026 — the Geoprecision bedrock logger replaces the need to.<br><br>
+    <strong>Nissai stream crossing.</strong> Discharge rises sharply from midday with glacier melt. The 2023 tree-trunk bridge was destroyed by the spring 2024 floods; a replacement was built to order by a team from Sangvor ahead of the 2025 visit. <strong>Confirm bridge status by phone before departure</strong> and arrange rebuilding in advance if needed — Sangvor has 4G coverage, Nissai does not. The separate road bridge (built Oct 2022) avoids fording on the drive in.
+  </div>
+
+  <h3>Naming and unit conventions — apply throughout</h3>
+  <table class="d">
+    <tr><th style="width:38mm">Item</th><th>Convention</th></tr>
+    <tr><td>Ablation stakes</td><td><span class="mono">NI &lt;n&gt;-&lt;yy&gt;</span> — e.g. <span class="mono">NI 3-26</span> = stake position 3, installed 2026. <em>Note:</em> the prefix was <span class="mono">NS</span> up to 2024 and <span class="mono">NI</span> from 2025; use <span class="mono">NI</span> and record any legacy label found on the stake itself.</td></tr>
+    <tr><td>GPS waypoints</td><td>Record a waypoint at <strong>every</strong> logger, stake and installation, even when re-occupying a known position. Export GPX at the end of each day.</td></tr>
+    <tr><td>Coordinates</td><td>Decimal degrees, WGS84, 6 decimal places. Longitude (X) then latitude (Y), matching the existing metadata tables.</td></tr>
+    <tr><td>Elevation</td><td>Metres a.s.l., GPS-derived, recorded to 0.1 m as logged. Treat as indicative — GPS elevation error exceeds interannual signal.</td></tr>
+    <tr><td>Lengths</td><td><strong>Centimetres</strong>, whole numbers. Never mix in metres on a field sheet.</td></tr>
+    <tr><td>Times</td><td>Local Tajikistan time (UTC+5), 24 h. Record the offset explicitly when setting any logger clock.</td></tr>
+    <tr><td>Photographs</td><td>At minimum: wide context, instrument as found, instrument as left, and any damage. Note the frame numbers on the field sheet.</td></tr>
+  </table>
+</div>
+
+<!-- ============ SOP 1 : AWS ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">1</span>Automated weather station — download &amp; maintenance</h2>
+  <div class="sop-sub">CRG AWS, WP51 · 71.35392 E, 38.74287 N · 3909 m a.s.l. · established 2021 · Campbell CR1000X</div>
+
+  <h3>Installed instrument inventory</h3>
+  <p>Verify each item is present, level and undamaged. Heights are as installed; record any that have changed (mast settlement, snow loading, guy tension).</p>
+  <table class="d">
+    <tr><th style="width:58mm">Sensor</th><th>Variable</th><th class="n" style="width:30mm">Height (cm)</th><th class="c" style="width:14mm">OK</th></tr>
+    <tr><td>Campbell CR1000X + case</td><td>Data logger</td><td class="n">—</td><td class="c">☐</td></tr>
+    <tr><td>Apogee/Campbell SN-500-SS</td><td>Radiation (SW / LW)</td><td class="n">273</td><td class="c">☐</td></tr>
+    <tr><td>Apogee/Campbell SI-111-L-10 (TSS)</td><td>Surface temperature</td><td class="n">273</td><td class="c">☐</td></tr>
+    <tr><td>Campbell CS215 + RAD10</td><td>Air temperature / humidity</td><td class="n">243</td><td class="c">☐</td></tr>
+    <tr><td>Campbell HygroVUE10 + RAD10</td><td>Air temperature / humidity</td><td class="n">373</td><td class="c">☐</td></tr>
+    <tr><td>Campbell ClimaVUE50</td><td>Mini station (Ta, RH, wind, liquid precip, pressure)</td><td class="n">273</td><td class="c">☐</td></tr>
+    <tr><td>Young 3D sonic anemometer 81000RE</td><td>Wind speed and direction (high frequency)</td><td class="n">443</td><td class="c">☐</td></tr>
+    <tr><td>Young/Campbell 05103-5 propeller</td><td>Wind speed and direction</td><td class="n">313</td><td class="c">☐</td></tr>
+    <tr><td>Lufft SHM31</td><td>Snow depth</td><td class="n">273</td><td class="c">☐</td></tr>
+    <tr><td>FlowCapt FC4 (+ mounting kit)</td><td>Drifting snow flux</td><td class="n">110–210</td><td class="c">☐</td></tr>
+    <tr><td>Campbell 107 soil probes ×2</td><td>Soil temperature</td><td class="n">−10 / −50</td><td class="c">☐</td></tr>
+    <tr><td>Milesight MS-C5364-PB-J 2.8 mm 5 MP</td><td>Station camera</td><td class="n">—</td><td class="c">☐</td></tr>
+    <tr><td><strong>AstroNode + antenna (Astrocast)</strong></td><td>Satellite data transmission — <strong>fault under investigation</strong></td><td class="n">—</td><td class="c">☐</td></tr>
+    <tr><td>Hughes 9502 modem + antenna</td><td>Station status telemetry (per 2024–25 inventory — confirm whether still fitted alongside the AstroNode)</td><td class="n">180</td><td class="c">☐</td></tr>
+    <tr><td>AxSun AX M-36 185 solar panel</td><td>Power</td><td class="n">—</td><td class="c">☐</td></tr>
+    <tr><td>LeadCrystal 6-CNFJ-70</td><td>Battery</td><td class="n">—</td><td class="c">☐</td></tr>
+    <tr><td>Dörr SnapShot Mini 4K (separate mount)</td><td>Timelapse camera, 256 GB card</td><td class="n">—</td><td class="c">☐</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">Critical — SD card removal</span>
+    The sonic anemometer writes at high frequency and <strong>the full record exists only on the SD card</strong>, not in logger memory. To remove it: press the <strong>eject</strong> button, which flushes remaining data from memory to disk. <strong>Do not pull the card until the LED turns green.</strong> This normally takes about 30 seconds. Pulling early truncates or corrupts the year's high-frequency record.
+  </div>
+
+  <h3>Known faults to diagnose in 2026</h3>
+  <p>Two faults are already known from the telemetry analysis. Both need deliberate, documented diagnosis on site — neither will be solved by a routine service pass.</p>
+
+  <div class="crit">
+    <span class="lbl">Fault A — satellite telemetry: assume the remote link is dead</span>
+    Satellite transmission via the <strong>AstroNode / Astrocast</strong> link first degraded to increasing data gaps, then went to <strong>total outage from 15 March 2026</strong> — the second such incident, and by April far the longest. Astrocast could not be reached by email, publishes no phone number and no company status; the portal still loads but carries no new data and will no longer register devices. The vendor's continued operation is in doubt.<br><br>
+    <strong>Two consequences for the field team.</strong> First, the remotely transmitted data is <em>not</em> usable for scientific analysis — the on-site download is the only record, which makes SOP 1 the single most valuable half-day of the campaign. Second, and more important operationally: <strong>there has been no remote visibility of station health since March.</strong> The station may have been running perfectly, or may have failed months ago. Arrive equipped to find it dead, not merely to service it.
+  </div>
+
+  <div class="gap">
+    <span class="lbl">Fault B — snow height sensor (Lufft SHM31)</span>
+    Missing values in the snow-height record. Suspected poor reflectivity of the target surface, or a sensor fault — the analysis could not go further because the sensor request routine in the logger program was written by someone else. Diagnose both possibilities on site, per the procedure below.
+  </div>
+
+  <h3>Procedure</h3>
+  <ol class="steps">
+    <li><strong>Approach and document.</strong> Photograph the station from a fixed vantage before touching anything — mast lean, snow/ice accretion, animal damage, guy-wire tension, panel soiling.</li>
+    <li><strong>Diagnose the AstroNode before disturbing anything.</strong> Photograph the antenna and its full sky view. Check for rime or ice accretion, physical obstruction, and whether the antenna is still correctly oriented and level — the analysis named all of these as candidate station-side causes. Read the AstroNode's own status indicators and queue/log, and record whether it believes it is transmitting. <em>This is the evidence that separates a station-side fault from a vendor-side outage, and it can only be gathered here.</em> Clear, re-seat and re-aim the antenna as needed; photograph as left.</li>
+    <li><strong>Diagnose the SHM31.</strong> Inspect and clean the optical window. Check the sensor is aimed at nadir and rigidly mounted. Inspect the target surface beneath it for poor reflectivity — dark debris, meltwater, ice glaze, disturbed ground. <strong>Take a manual tape measurement</strong> from the sensor face to the target surface and record it alongside a simultaneous sensor reading; this offset is what lets the record be diagnosed and corrected later. Note the SHM31 measurement routine as it appears in the logger program.</li>
+    <li><strong>Record station state.</strong> Battery voltage, logger clock vs. GPS time (record the drift <em>before</em> correcting), panel condition, enclosure desiccant colour, evidence of water ingress.</li>
+    <li><strong>Download logger memory.</strong> Collect all logger tables to the field laptop. Verify the file opens and the last record is dated today.</li>
+    <li><strong>Eject and copy the SD card</strong> per the critical note above. Copy to <strong>two</strong> separate physical media before the card leaves your hand.</li>
+    <li><strong>Verify before reinstalling.</strong> Confirm record count and that the timeseries is continuous — gaps found now can sometimes still be recovered; gaps found in Switzerland cannot.</li>
+    <li><strong>Reinsert the card, confirm logging resumes</strong>, and watch at least one scan complete.</li>
+    <li><strong>Sensor service.</strong> Clean the radiometer domes and the SI-111 window; clear the SHM31 optical path; check the FlowCapt tubes are clear and mounting is rigid; confirm sonic transducer paths are unobstructed.</li>
+    <li><strong>Timelapse camera.</strong> Swap the 256 GB card (a full year needs ~70 GB). Keep <strong>PIR trigger OFF</strong> — it produced excessive false triggers in 2024. Retain the acquisition schedule adopted in 2024 for valley light conditions; record the exact schedule as set. Replace batteries regardless of indicated level.</li>
+    <li><strong>Close out.</strong> Photograph the station as left. Log every change made in the field sheet — an undocumented change becomes an unexplained step in the timeseries.</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">Why the sonic record matters</span>
+    The high-frequency sonic data supports the SLF method for deriving latent heat flux from sonic measurements alone, without high-frequency humidity. Applied to the 2021–22 season it gave ~0.73 mm/day of snow sublimation — over 150 mm/yr, a material term in the high-altitude water budget. Combined with FlowCapt drift data it is also the route to a defensible annual solid precipitation total at a site where wind erosion of the snow surface is clearly visible. Losing this record costs more than a year of wind speed.
+  </div>
+
+  <h4>Field sheet — SOP 1</h4>
+  <table class="f">
+    <tr><td class="pre" style="width:34mm">Date / time on site</td><td style="width:30mm"></td><td class="pre" style="width:30mm">Observers</td><td></td></tr>
+    <tr><td class="pre">Battery voltage (V)</td><td></td><td class="pre">Logger clock drift (s)</td><td></td></tr>
+    <tr><td class="pre">Logger download OK?</td><td></td><td class="pre">Last record timestamp</td><td></td></tr>
+    <tr><td class="pre">SD card — green LED seen?</td><td></td><td class="pre">SD copied to 2 media?</td><td></td></tr>
+    <tr><td class="pre">Desiccant condition</td><td></td><td class="pre">Water ingress?</td><td></td></tr>
+    <tr><td class="pre"><strong>Fault A</strong> — antenna iced / obstructed?</td><td></td><td class="pre">Antenna orientation as found</td><td></td></tr>
+    <tr><td class="pre">AstroNode status / queue as read</td><td colspan="3" style="height:12mm"></td></tr>
+    <tr><td class="pre"><strong>Fault B</strong> — SHM31 window condition</td><td></td><td class="pre">Target surface beneath sensor</td><td></td></tr>
+    <tr><td class="pre">Manual tape: sensor → surface (cm)</td><td></td><td class="pre">Simultaneous sensor reading (cm)</td><td></td></tr>
+    <tr><td class="pre">Timelapse card swapped</td><td></td><td class="pre">Schedule as set</td><td></td></tr>
+    <tr><td class="pre">PIR confirmed OFF</td><td></td><td class="pre">Camera batteries changed</td><td></td></tr>
+    <tr><td class="pre">Photo frame numbers</td><td colspan="3"></td></tr>
+    <tr><td class="pre">Damage / anomalies</td><td colspan="3" style="height:16mm"></td></tr>
+    <tr><td class="pre">Changes made (each one)</td><td colspan="3" style="height:20mm"></td></tr>
+  </table>
+  <div class="sig">Recorded by <span></span> Checked by <span></span></div>
+</div>
+
+<!-- ============ SOP 2 : GST ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">2</span>Ground temperature network — readout &amp; maintenance</h2>
+  <div class="sop-sub">Distributed GST network, 2429–4616 m a.s.l. · BLE loggers (2021–) + Geoprecision bedrock logger (2022–)</div>
+
+  <div class="banner">
+    <div class="bar">Stop — settle this before the campaign, not in the field</div>
+    <div class="body">
+      <strong>The readout app will not install on a modern phone.</strong> <span class="plain">The SLF-Logger Manager APK targets <strong>API level 19 (Android 4.4)</strong>. Android enforces a minimum installable target API level: <strong>Android 14 refuses to install anything targeting below API 23, and Android 15 raises that bar to API 24.</strong> On any handset running Android 14 or newer the install fails outright with <span class="mono">INSTALL_FAILED_DEPRECATED_SDK_VERSION</span>.</span>
+      <div class="routes">
+        <div class="r"><span class="n">1</span><strong>Take a phone running Android 13 or older.</strong> <span class="plain">A dedicated older handset kept for this purpose is the robust answer, and it settles every other compatibility question at the same time.</span></div>
+        <div class="r"><span class="n">2</span><strong>Sideload over ADB:</strong> <span class="mono">adb install --bypass-low-target-sdk-block app-release.apk</span>. <span class="plain">Works, but needs a cable, USB debugging enabled and platform-tools installed — arrange and <em>test</em> it before departure, not at the trailhead.</span></div>
+      </div>
+      <div class="routes">
+        <strong>Do not factory-reset or replace a working readout phone before this campaign.</strong> <span class="plain">The block applies only to new installations, so a handset that already has the app keeps it through an OS upgrade. That working phone is campaign-critical equipment.</span>
+      </div>
+      <div class="routes">
+        <strong>Location services must be switched ON</strong> <span class="plain">on the phone — not merely permitted. Android has required location to be enabled for Bluetooth LE scanning since Android 6. With it off the scan returns nothing at all and every logger reads as absent.</span>
+      </div>
+    </div>
+  </div>
+
+  <p>Ground surface temperature integrates the surface energy balance, which makes it the cheapest high-value component of a cryosphere monitoring network and the most useful for distributed model validation. Loggers below the 0 °C MAGST line are likely to sit in permafrost terrain. Two sensor types are deployed: <strong>SLF-Logger BLE</strong> units read over Bluetooth at short range, and one <strong>Geoprecision bedrock logger</strong> with a radio transmitter, read from up to ~100 m.</p>
+
+  <h3>The SLF-Logger BLE — specification</h3>
+  <p>Built by SLF Electronics and Mechanics for the permafrost team. Understanding two numbers changes how you search for one and how long you wait: <strong>radio range up to 20 m line of sight</strong>, and <strong>it advertises only once every 10 seconds</strong>.</p>
+  <table class="d">
+    <tr><th style="width:40mm">Property</th><th>Value</th></tr>
+    <tr><td>Temperature sensor</td><td>Sensirion STS21. Range −40 to +85 °C, repeatability ±0.1 °C, calibrated 0 °C ±0.1 °C, resolution 0.01 °C.</td></tr>
+    <tr><td>Memory</td><td>2 Mbit EEPROM ≈ <strong>131,000 measurements</strong> — about 15 years at hourly logging. Memory is very unlikely to be the limiting factor.</td></tr>
+    <tr><td>Battery</td><td>Tadiran SL-750, 1100 mAh. Design life <strong>~8.5 years</strong> at hourly measurement with ~2 readouts per year.</td></tr>
+    <tr><td>Radio</td><td>Bluetooth 4.0 LE (BLE), 2.4 GHz. <strong>Range up to 20 m line of sight</strong>; advertises once every 10 s.</td></tr>
+    <tr><td>Case</td><td>Ø20 mm × 90 mm, ABS, waterproof. Designed to fit a 22 mm × 10 cm borehole.</td></tr>
+    <tr><td>Software</td><td><strong>SLF-Logger Manager</strong> (<span class="mono">ch.slf.slf_loggermanager</span> v1.0, built March 2015, targets API 19) — Android, or Windows with a <strong>BLED112 USB dongle</strong> plus its driver. <strong>See the compatibility banner at the head of this section.</strong></td></tr>
+  </table>
+
+  <div class="note">
+    <span class="lbl">Installing on a permitted phone</span>
+    Allow installation from unknown sources, copy <span class="mono">app-release.apk</span> to the phone, then find and tap it in a file browser. From Android 8 onward the permission is granted per-app at the moment of install rather than globally, so expect a prompt from whichever file browser you use.
+  </div>
+
+  <div class="note">
+    <span class="lbl">Ageing of the network</span>
+    The Nissai loggers were installed 23–25 September 2021, so in September 2026 they are entering <strong>year 5 of a ~8.5-year design life</strong>. Battery is not yet the expected failure mode, but the estimate assumes hourly logging and roughly two readouts a year — and cold reduces delivered capacity. Record the reported battery state at every logger this year so that the decline can be tracked before it starts costing records.
+  </div>
+
+  <div class="crit">
+    <span class="lbl">Do not access the ridge block slope (WP44 / WP47 / WP48)</span>
+    Movement in this rock slope has increased as the glacier toe buttressing it melts out — flagged in 2024, avoided entirely in 2025. The Geoprecision logger at WP100 can be read by radio from the glacier, which removes the reason to climb it. <strong>Treat these three BLE loggers as suspended, not lost.</strong> Any decision to resume them is a project decision made before departure, not a judgement call on the slope.
+  </div>
+
+  <h3>Network status and 2026 actions</h3>
+  <table class="d">
+    <tr><th class="c" style="width:11mm">WP</th><th style="width:20mm">Type</th><th class="n" style="width:19mm">Lon (X)</th><th class="n" style="width:19mm">Lat (Y)</th><th class="n" style="width:14mm">Elev</th><th style="width:20mm">Logger ID</th><th>2026 action</th></tr>
+    <tr><td class="c">100</td><td>Geoprecision (bedrock)</td><td class="n mono">71.371561</td><td class="n mono">38.733798</td><td class="n">4416</td><td class="mono">A542D3</td><td><strong>Read by radio from glacier</strong> (~100 m). Access code <span class="mono">DE10</span>. <span class="tag pri">priority</span></td></tr>
+    <tr><td class="c">114</td><td>BLE</td><td class="n mono">71.295810</td><td class="n mono">38.722870</td><td class="n">2429</td><td class="mono">2005-0092</td><td>Read on walk-out. Sited between a copse of trees (replaced a logger lost to ploughing).</td></tr>
+    <tr><td class="c">62</td><td>BLE</td><td class="n mono">71.307500</td><td class="n mono">38.737387</td><td class="n">2801</td><td class="mono">2005-0091</td><td>Read on walk-out.</td></tr>
+    <tr><td class="c">60</td><td>BLE</td><td class="n mono">71.330360</td><td class="n mono">38.750384</td><td class="n">3236</td><td class="mono">2005-0081</td><td>Read on walk-out.</td></tr>
+    <tr><td class="c">59</td><td>BLE</td><td class="n mono">71.341133</td><td class="n mono">38.748462</td><td class="n">3591</td><td class="mono">2005-0070</td><td>Read on walk-out.</td></tr>
+    <tr><td class="c">50</td><td>BLE</td><td class="n mono">71.353654</td><td class="n mono">38.745178</td><td class="n">3938</td><td class="mono">2005-0071</td><td>Read — near AWS.</td></tr>
+    <tr><td class="c">49</td><td>BLE</td><td class="n mono">71.354001</td><td class="n mono">38.746032</td><td class="n">3942</td><td class="mono">2005-0077</td><td>Read — near AWS.</td></tr>
+    <tr><td class="c">55</td><td>BLE</td><td class="n mono">71.360396</td><td class="n mono">38.742309</td><td class="n">4002</td><td class="mono">2005-0080</td><td>Read — en route to lower stakes.</td></tr>
+    <tr><td class="c">54</td><td>BLE</td><td class="n mono">71.393875</td><td class="n mono">38.737510</td><td class="n">4616</td><td class="mono">2005-0085</td><td><strong>Never read out since 2021</strong> — hard to access, dropped for time in 2024 and 2025. Decide before departure whether to commit a half-day, or retire it.</td></tr>
+    <tr><td class="c">44</td><td>BLE</td><td class="n mono">71.371821</td><td class="n mono">38.733970</td><td class="n">4389</td><td class="mono">2005-0086</td><td><strong>Suspended</strong> — unstable block slope. Do not access.</td></tr>
+    <tr><td class="c">47</td><td>BLE</td><td class="n mono">71.371571</td><td class="n mono">38.733873</td><td class="n">4412</td><td class="mono">2005-0082</td><td><strong>Suspended</strong> — unstable block slope. Do not access.</td></tr>
+    <tr><td class="c">48</td><td>BLE</td><td class="n mono">71.371490</td><td class="n mono">38.733920</td><td class="n">4404</td><td class="mono">2005-0074</td><td><strong>Suspended</strong> — unstable block slope. Do not access. (Replaced 2005-0087 in 2022.)</td></tr>
+    <tr><td class="c">58</td><td>BLE</td><td class="n mono">71.352994</td><td class="n mono">38.740310</td><td class="n">3951</td><td class="mono">2005-0076</td><td><strong>Lost 2024</strong> — buried by collapse of a multi-tonne block, ice-cored moraine. Do not search.</td></tr>
+    <tr><td class="c">63</td><td>BLE</td><td class="n mono">71.295889</td><td class="n mono">38.722846</td><td class="n">2431</td><td class="mono">2005-0079</td><td><strong>Lost 2023</strong> to a ploughed field. Superseded by WP114.</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">Be patient — the commonest field error is declaring a live logger dead</span>
+    The logger sends an advertising packet <strong>only once every 10 seconds</strong>. The app's scan window <strong>times out after 30 seconds and must be restarted manually</strong>. Connecting can take <strong>30 seconds or considerably longer</strong> if the advertising packet does not fall inside the scanning window.<br><br>
+    A cold, tired person who scans once, sees nothing and moves on will write off a working logger. <strong>Restart the scan at least three times, from more than one position, before concluding anything.</strong> Conversely, the 20 m range means a buried logger may still answer a scan — so scan before you dig, and treat a radio response as proof of life even when nothing is visible.
+  </div>
+
+  <h3>Procedure — SLF-Logger BLE</h3>
+  <ol class="steps">
+    <li><strong>Navigate to the recorded waypoint and scan first, before searching visually.</strong> A response tells you the logger is alive and within ~20 m. Restart the scan several times per the warning above, moving position between attempts. Record how many scans you ran before concluding a logger is absent.</li>
+    <li><strong>Photograph the site as found</strong>, including enough surroundings to relocate it if the marker is gone.</li>
+    <li><strong>Connect: long-press the entry</strong> in the logger list (Android). The list shows the last-known name and serial number plus signal strength. Expect to wait.</li>
+    <li><strong>Read the status screen before doing anything, and write it down.</strong> It shows serial number, status, data count, battery %, time of first measurement, Est. Endtime, project / name / location, lat-lng, altitude, interval, accuracy, and — importantly — <strong>Phone-Time, Logger-Time and the Difference between them</strong>. That Difference is the logger's clock drift over the year, and <strong>starting a new measurement overwrites the clock, destroying it.</strong> Capture it now or lose it. A status of <span class="mono">Interrupted - Err</span> is meaningful: note it verbatim.</li>
+    <li><strong>Stop the measurement to read it out.</strong> <span class="mono">Readout</span> only works in the <strong>stopped</strong> state — press <span class="mono">Stop</span>, confirm the prompt, and the readout follows. <strong>A full memory can take up to 9 minutes to read and save</strong>: stay with the phone, keep it warm, and do not let it lose the connection.</li>
+    <li><strong>Heed the warning dialog.</strong> If the app says <em>"It seems you have read the data some time ago. Are you sure you have read it? On start the old data will be erased!"</em> — do not tap through it. Starting a new measurement without reading out first erases the year. This is the one irreversible mistake available at a GST site.</li>
+    <li><strong>Verify on screen in the DataViewer</strong> before leaving: the record should span the full year with no long flat section. A flatlined trace usually means the logger became detached, buried or exposed — diagnosable now, never later.</li>
+    <li><strong>Restart logging.</strong> Set the project settings and position (the <span class="mono">GPS</span> button, or <span class="mono">Fix</span> to take the phone's coordinates; <strong>altitude must be entered separately</strong>). Note the <strong>Est. Endtime</strong> the app predicts and the reason it gives — memory full or battery empty. That single figure tells you whether this logger will survive to the next visit.</li>
+    <li><strong>Confirm the status reads <span class="mono">Measuring</span></strong> (or <span class="mono">Delayed Start</span>) before disconnecting.</li>
+    <li><strong>Disconnect deliberately</strong> with the Return key. The connection persists until manually dropped and <strong>holds the screen bright the whole time</strong> — walking away with it connected drains both the phone and the logger.</li>
+    <li><strong>Record</strong> substrate (rock / sediment / debris), aspect and slope, and any change since installation — burial, exposure, vegetation, disturbance.</li>
+    <li>If replacing a logger, install within 10 m of the original, record the new position, and clearly log both the retired and the new ID.</li>
+  </ol>
+
+  <div class="crit">
+    <span class="lbl">Clock and timezone — record what you set</span>
+    On the Windows version, starting a measurement <strong>overwrites the logger clock with PC time (UTC+1)</strong>, not local Tajikistan time. Whatever device is used, <strong>write down the timezone the logger clock was actually set to</strong> on the field sheet. An unrecorded 4-hour offset is invisible in the data and corrupts every diurnal analysis built on it.
+  </div>
+
+  <h3>Data files — where they land and how they are named</h3>
+  <p>Set the storage location and naming scheme in <span class="mono">Settings</span> before the first readout, so every logger comes back consistently labelled. Available placeholders for the project structure and filename:</p>
+  <table class="d">
+    <tr><th class="mono" style="width:30mm">%Project%</th><th class="mono" style="width:26mm">%Location%</th><th class="mono" style="width:24mm">%Name%</th><th class="mono" style="width:32mm">%TimeOfFirst%</th><th class="mono">%SerialNr%</th></tr>
+    <tr><td>Project name</td><td>Site / location</td><td>Logger name</td><td>Date-time of first measurement</td><td>Logger serial number</td></tr>
+  </table>
+  <p>Readouts are written as <strong>CSV</strong>, named by serial number and first-measurement timestamp (e.g. <span class="mono">00000005_20150212_1710.csv</span>). At camp, connect the phone by USB and copy them off: they are at <span class="mono">Internal storage \ SLF-Logger-Manager</span>, or if the SD-card option was selected, at <span class="mono">SD card \ Android \ data \ ch.slf.slf_loggermanager \ files \ SLF-Logger-Manager</span>.</p>
+  <p>The <strong>Log Viewer</strong> lists every stored logger state — when each was started, stopped and last read, filterable and sortable by project. <strong>Use it as the end-of-day completeness check</strong> against the network table above: it is the fastest way to catch a logger that was visited but never actually read out.</p>
+
+  <h3>The Geoprecision bedrock logger (WP100)</h3>
+  <p>A wire probe inserted into a 6 mm hole about 10 cm deep in exposed bedrock at 4416 m. Bedrock responds to atmospheric forcing far more directly than debris, which makes this the interpretive anchor for the whole debris-logger network — and, since the ridge BLE loggers are suspended, the only sensor still reporting from that slope.</p>
+
+  <table class="d">
+    <tr><th style="width:38mm">Item</th><th>Detail</th></tr>
+    <tr><td>Model</td><td>GeoPrecision wireless mini data logger, <strong>M-Log5W</strong> family — almost certainly the <strong>M-Log5W-Rock</strong> variant, which is exactly this installation (probe cemented into drilled bedrock, radio readout). <strong>Confirm the model before buying or configuring anything.</strong></td></tr>
+    <tr><td>Radio</td><td><strong>433 MHz</strong> (the Europe / Asia / Africa band). This is why it reads at ~100 m where the 2.4 GHz BLE loggers manage ~20 m — the lower frequency also penetrates snow far better.</td></tr>
+    <tr><td>Readout hardware</td><td><strong>A 433 MHz wireless USB dongle</strong> — a hard dependency. Without it nothing can talk to this logger.</td></tr>
+    <tr><td>Software</td><td><strong>GP5W-Shell</strong> (older units: FG2-Shell). Free from the GeoPrecision site. Windows.</td></tr>
+    <tr><td>Memory</td><td>Flash, over <strong>30 years</strong> of hourly measurements. Capacity is not a concern.</td></tr>
+    <tr><td>Access code</td><td><span class="mono">DE10</span> (from the site metadata). Logger ID <span class="mono">A542D3</span>.</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">Set the laptop clock to UTC before you read anything out</span>
+    Timestamps derive from the PC clock. The manufacturer's instruction is blunt: set the PC clock to <strong>UTC, accurate to the second</strong>, before connecting — and <strong>disable automatic daylight-saving adjustment</strong>, which otherwise introduces a silent step in the record.<br><br>
+    Note that this is the <em>opposite</em> convention to the SLF BLE loggers, whose clock follows whatever device reads them. Two logger families, two clock conventions, on the same trip. <strong>Record which was used for each</strong> — an unlabelled offset is invisible in the data and corrupts every diurnal analysis downstream.
+  </div>
+
+  <h3>Procedure — Geoprecision bedrock logger</h3>
+  <ol class="steps">
+    <li><strong>Set and verify the laptop clock (UTC, DST off)</strong> before leaving camp. Plug in the 433 MHz dongle and allow about a minute before launching the software.</li>
+    <li><strong>Approach to within radio range from the glacier</strong> — read successfully from about 100 m in 2025. <strong>Do not approach the slope itself.</strong></li>
+    <li><strong>Connect using access code <span class="mono">DE10</span></strong> and confirm the logger ID matches <span class="mono">A542D3</span>.</li>
+    <li><strong>Use "Load to Disk" and choose a FULL upload, not Incremental.</strong> Incremental fetches only new data; Full re-reads everything. Memory holds decades, the transfer costs minutes, and a full copy makes this download self-contained rather than dependent on every previous one being intact.</li>
+    <li><strong>Save both formats</strong> — the compressed <span class="mono">.G2D</span> / <span class="mono">.F2B</span> file and the expanded CSV. The compressed file is the faithful original; the CSV is what everyone will actually open.</li>
+    <li><strong>Verify before disconnecting:</strong> the record ends today and begins where the 2025 download ended. Check the peak summer values are plausible — this logger reached 30 °C in summer 2025, so a suspiciously flat or clipped trace is worth catching now.</li>
+    <li><strong>Note the battery level.</strong> If a battery change is ever attempted, <strong>save the data to the PC first</strong> and re-verify every logger setting afterwards — settings can be lost with the power.</li>
+    <li><strong>If it will not transmit, log that and stop.</strong> Do not attempt physical access to the block slope under any circumstances.</li>
+  </ol>
+
+  <div class="gap">
+    <span class="lbl">Two dongles, one laptop — check the kit before departure</span>
+    The two logger families need <strong>two different, non-interchangeable USB dongles</strong>: a <strong>BLED112</strong> (Bluetooth LE) for the SLF loggers if reading them from Windows, and a <strong>433 MHz GeoPrecision dongle</strong> for the bedrock logger. Neither has a substitute, both are small enough to be forgotten, and each renders an entire objective impossible if left behind. Pack them together, with their drivers installed and <strong>tested on the field laptop</strong>, and carry a spare of the 433 MHz dongle if one exists — it is the only route to WP100.
+  </div>
+
+  <div class="note">
+    <span class="lbl">Context for interpretation</span>
+    The WP100 record runs continuously from September 2022 and reached a peak surface temperature of 30 °C in summer 2025. Both the record temperature and the rockfall activity that season sit in the same warming-permafrost picture. When plotting MAGST against elevation on return, carry the zero line — loggers below it indicate probable permafrost terrain.
+  </div>
+
+  <h4>Field sheet — SOP 2 (one row per logger)</h4>
+  <p style="font-size:7.4pt; color:#5a5a52; margin-top:-1mm">Record the clock timezone set and the Est. Endtime for every logger restarted — both are invisible in the data itself.</p>
+  <table class="f">
+    <tr><th class="c" style="width:10mm">WP</th><th style="width:17mm">Logger ID</th><th class="c" style="width:11mm">Scans run</th><th style="width:16mm">Status as found</th><th class="c" style="width:12mm">Battery %</th><th style="width:18mm"><strong>Clock Difference</strong></th><th style="width:16mm">Data count</th><th style="width:18mm">Clock set to (TZ)</th><th style="width:18mm">Est. Endtime + reason</th><th>Substrate, condition, photos</th></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="sig">Recorded by <span></span> Checked by <span></span></div>
+</div>
+
+<!-- ============ SOP 3 : STREAM GAUGE ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">3</span>Catchment stream gauge — re-establishment &amp; gauging</h2>
+  <div class="sop-sub">Nissai stream · monitoring interrupted since spring 2024 · re-establishment is a carried-over priority</div>
+
+  <div class="gap">
+    <span class="lbl">Standing gap in the record</span>
+    Both stream gauges installed in 2022 were lost, presumed to the destructive spring 2024 floods — only the U-bracket remained bolted to the rock. The flood damage was evident along the whole drive to Sangvor and within the Nissai catchment itself. Re-establishment and discharge gauging were named key priorities for 2025 and remain the priority for 2026. <strong>Confirm the current on-the-ground status before finalising the equipment list</strong>, since the 2025 outcome for this objective is not written up in the field report.
+  </div>
+
+  <h3>Approach agreed in 2024</h3>
+  <p>The new road bridge (built Oct 2022) offers a stable cross-section on gabioned foundations — a far better mounting than the previous bank site. The identified approach is a <strong>lidar-based stage monitoring system mounted on the bridge</strong>, measuring downward to the water surface from a fixed, surveyed reference.</p>
+
+  <h3>Procedure</h3>
+  <ol class="steps">
+    <li><strong>Site assessment.</strong> Photograph the bridge and cross-section. Confirm the gabion foundations are intact after the most recent spring melt. Check the surviving U-bracket at the old site and decide whether to recover or abandon it.</li>
+    <li><strong>Mount the stage sensor</strong> rigidly to the bridge structure, sighting a section of water surface that stays wetted at low flow and is clear of turbulence, bridge shadow and debris rafts.</li>
+    <li><strong>Survey the datum.</strong> Measure and record the vertical offset from the sensor face to a permanent, photographed benchmark on the bridge, plus the offset to the water surface at the time of install. <em>Without this the stage record cannot be re-levelled after any future remount, and the series is not continuable.</em></li>
+    <li><strong>Install a staff gauge or painted reference</strong> readable from the bank, so any visitor can log a manual stage reading. Photograph it with the water level visible.</li>
+    <li><strong>Barometric compensation.</strong> If using a pressure-based backup, site the on-land barometer where construction cannot reach it — the 2023 on-land HOBO was destroyed by the road bridge works. Record its position and height precisely.</li>
+    <li><strong>Survey the cross-section:</strong> width, and depth at fixed intervals across the section, referenced to the same benchmark.</li>
+    <li><strong>Gauge discharge</strong> at least twice at contrasting flows (e.g. early morning low flow and afternoon peak) to begin a rating curve. Record the method, the measured discharge, the simultaneous stage, and the time of each.</li>
+    <li><strong>Set logging interval and clock</strong>, record both, and confirm the first records are being written before leaving the site.</li>
+  </ol>
+
+  <div class="note">
+    <span class="lbl">Timing note</span>
+    Sampling both a morning and an afternoon flow on the same day exploits the strong diurnal glacier-melt signal to get two well-separated rating points at no extra travel cost. The same diurnal rise is what makes the stream unsafe to cross from midday onward — plan the two gaugings from the bridge, not from a wade.
+  </div>
+
+  <h4>Field sheet — SOP 3</h4>
+  <table class="f">
+    <tr><td class="pre" style="width:36mm">Install date / time</td><td style="width:28mm"></td><td class="pre" style="width:34mm">Sensor type &amp; serial</td><td></td></tr>
+    <tr><td class="pre">Position (lon / lat / elev)</td><td colspan="3"></td></tr>
+    <tr><td class="pre">Benchmark description</td><td colspan="3" style="height:12mm"></td></tr>
+    <tr><td class="pre">Sensor face → benchmark (cm)</td><td></td><td class="pre">Sensor face → water (cm)</td><td></td></tr>
+    <tr><td class="pre">Logging interval</td><td></td><td class="pre">Clock set to (local, UTC+5)</td><td></td></tr>
+    <tr><td class="pre">Staff gauge installed?</td><td></td><td class="pre">Barometer position</td><td></td></tr>
+  </table>
+  <table class="f">
+    <tr><th style="width:26mm">Gauging #</th><th style="width:26mm">Date / time</th><th style="width:34mm">Method</th><th style="width:32mm">Discharge (m³/s)</th><th>Simultaneous stage reading</th></tr>
+    <tr><td class="c" style="height:9mm">1</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm">2</td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:9mm">3</td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <table class="f">
+    <tr><th>Cross-section survey — distance from left bank (m) / depth (cm), referenced to benchmark</th></tr>
+    <tr><td style="height:24mm"></td></tr>
+  </table>
+  <div class="sig">Recorded by <span></span> Checked by <span></span></div>
+</div>
+
+<!-- ============ SOP 4 : STAKES ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">4</span>Ablation stake network — read out &amp; redrill</h2>
+  <div class="sop-sub">Nissai Glacier · 7 ablation stakes (4068–4387 m) + 1 accumulation stake · annual glaciological mass balance</div>
+
+  <h3>Measurement convention — read this before measuring anything</h3>
+  <p>The archive uses three quantities per stake. Getting these the right way round is the single most important thing on the glacier:</p>
+  <table class="d">
+    <tr><th style="width:44mm">Quantity</th><th>Definition</th></tr>
+    <tr><td><strong>Stake length</strong></td><td>Total physical length of the stake assembly, cm. Segments are 2 m, joined by steel chains and screws.</td></tr>
+    <tr><td><strong>Stake in ice</strong></td><td>Length below the ice surface immediately after drilling, cm. At full insertion this equals the stake length and emergence is zero.</td></tr>
+    <tr><td><strong>Stake measured</strong></td><td><strong>Emergent length above the ice surface</strong> at the time of the visit, cm.</td></tr>
+  </table>
+  <p style="margin-top:1mm">Annual ablation at a stake is therefore:</p>
+  <div class="note" style="border-left-color:#2c5f8a; background:#eef2f6;">
+    <span class="lbl" style="color:#24506f;">Calculation</span>
+    <strong>ablation (cm ice equiv.) = emergent<sub>this year</sub> − emergent<sub>last year</sub></strong>, where emergent<sub>last year</sub> = stake length − stake in ice.<br>
+    <strong>b (m w.e.) = − ablation (cm i.e.) × 0.9 / 100</strong>, using ρ<sub>ice</sub> = 900 kg m<sup>−3</sup>.<br><br>
+    <em>Worked example from 2024–25, stake 6:</em> length 400, in ice 2024 = 228 → emergent 2024 = 172 cm. Measured 2025 = 378 cm. Ablation = 378 − 172 = 206 cm i.e. → b = −1.854 m w.e. ✓
+  </div>
+
+  <h3>Baseline: stakes as left in September 2025 — what you should find</h3>
+  <p>Projected emergence assumes a repeat of the 2024–25 ablation at each stake. Treat it as a planning figure for how much stake to carry, not a prediction.</p>
+  <table class="d">
+    <tr><th class="c" style="width:12mm">Stake</th><th style="width:20mm">Label</th><th class="n" style="width:19mm">Lon (X)</th><th class="n" style="width:19mm">Lat (Y)</th><th class="n" style="width:14mm">Elev</th><th class="n" style="width:14mm">Length</th><th class="n" style="width:14mm">In ice '25</th><th class="n" style="width:16mm">Emergent '25</th><th class="n" style="width:16mm">2024–25 abl.</th><th>Projected Sep '26</th></tr>
+    <tr><td class="c">1</td><td class="mono">NI 1-25</td><td class="n mono">71.362939</td><td class="n mono">38.741813</td><td class="n">4068</td><td class="n">600</td><td class="n">595</td><td class="n">5</td><td class="n">481</td><td>~486 cm emergent — <strong>near melt-out</strong></td></tr>
+    <tr><td class="c">2</td><td class="mono">NI 2-25</td><td class="n mono">71.365724</td><td class="n mono">38.739660</td><td class="n">4127</td><td class="n">600</td><td class="n">600</td><td class="n">0</td><td class="n">492</td><td>~492 cm emergent — <strong>near melt-out</strong></td></tr>
+    <tr><td class="c">3</td><td class="mono">NI 3-25</td><td class="n mono">71.369215</td><td class="n mono">38.739268</td><td class="n">4234</td><td class="n">600</td><td class="n">600</td><td class="n">0</td><td class="n">370</td><td>~370 cm emergent — redrill</td></tr>
+    <tr><td class="c">4</td><td class="mono">NI 4-25</td><td class="n mono">71.372995</td><td class="n mono">38.738883</td><td class="n">4313</td><td class="n">600</td><td class="n">588</td><td class="n">12</td><td class="n">320</td><td>~332 cm emergent — redrill</td></tr>
+    <tr><td class="c">5</td><td class="mono">NI 5-25</td><td class="n mono">71.375987</td><td class="n mono">38.738293</td><td class="n">4341</td><td class="n">400</td><td class="n">391</td><td class="n">9</td><td class="n">299</td><td>~308 cm emergent — <strong>near melt-out</strong></td></tr>
+    <tr><td class="c">6</td><td class="mono">NI 6-25</td><td class="n mono">71.376728</td><td class="n mono">38.735352</td><td class="n">4343<sup>†</sup></td><td class="n">400</td><td class="n">400</td><td class="n">0</td><td class="n">206</td><td>~206 cm emergent — redrill</td></tr>
+    <tr><td class="c">7</td><td class="mono">NI 7-25</td><td class="n mono">71.381125</td><td class="n mono">38.739402</td><td class="n">4387</td><td class="n">400</td><td class="n">391</td><td class="n">9</td><td class="n">271</td><td>~280 cm emergent — <strong>near melt-out</strong></td></tr>
+    <tr><td class="c">8</td><td class="mono">NS8-24</td><td class="n mono">71.380200</td><td class="n mono">38.730950</td><td class="n">4450</td><td class="n">200</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>Accumulation area stake, reinforced to stay upright; co-located with the 2024 firn core. <strong>Verify 2025 reading before departure.</strong></td></tr>
+  </table>
+  <p style="font-size:7pt; color:#6a6a62; margin-top:-1mm">† The 2025 elevation for stake 6 (4343 m) differs by ~40 m from the 2024 value (4383 m) at a near-identical position — likely a transcription error. Re-survey and flag.</p>
+
+  <div class="crit">
+    <span class="lbl">Plan for full melt-out</span>
+    Four of seven stakes are projected to be within ~120 cm of melting out. In 2025 stake 1 was found <strong>fully melted out</strong> and its mass balance had to be estimated from the linear relationship across stakes 2–6 — a real loss of an independent observation at the most sensitive elevation. Carry enough 2 m segments and chain to rebuild every stake to full length, and prioritise the lowest stakes early in the day in case time runs short.
+  </div>
+
+  <h3>Procedure</h3>
+  <ol class="steps">
+    <li><strong>Locate and identify.</strong> Navigate to the 2025 waypoint. Read the physical label on the stake and record it verbatim, even if it disagrees with the expected label.</li>
+    <li><strong>Photograph as found</strong>, with a person or pole for scale, before touching the stake.</li>
+    <li><strong>Measure emergent length</strong> to the ice surface. Where the stake sits in a melt cup or on a pedestal, measure to the <strong>general surrounding ice surface</strong>, not to the local depression, and note that a correction was applied.</li>
+    <li><strong>Record tilt.</strong> If the stake leans, measure the lean or record the vertical height separately from the along-stake length. An uncorrected lean is a systematic bias in ablation.</li>
+    <li><strong>Record the position</strong> as a new GPS waypoint — stakes move with the ice, so the 2026 coordinate is a measurement in its own right.</li>
+    <li><strong>Drill the new stake.</strong> Mechanical drill with the 6 m Kovacs ice auger in 1 m sections. Drill the <strong>precise full stake length</strong> into the ice so that emergence at installation is zero, or record the exact insertion depth if it is not.</li>
+    <li><strong>Where the old stake still holds</strong>, install the new stake alongside and measure both. Paired side-by-side measurements were highly consistent in 2024 and are the only way to catch a bad reading — the 2023 NS7 measurement was identified as erroneous exactly this way.</li>
+    <li><strong>Photograph as left</strong>, and record the new label, length, and in-ice depth on the sheet before moving to the next stake.</li>
+  </ol>
+
+  <h4>Equipment — glacier day</h4>
+  <div class="two-col">
+  <ul class="chk">
+    <li>Kovacs 6 m ice auger, 1 m sections</li>
+    <li>Mechanical drill + adaptor</li>
+    <li>4 × drill batteries (1 used in 2024–25, carry 4)</li>
+    <li>Stake segments, 2 m — enough to rebuild all 7</li>
+    <li>Steel chain and screws for joints</li>
+    <li>Tape measure (metric, ≥5 m) ×2</li>
+    <li>Handheld GPS + spare batteries</li>
+    <li>Labels / paint marker for stake IDs</li>
+    <li>Camera, scale object</li>
+    <li>Rope, harnesses, crevasse rescue kit</li>
+    <li>This protocol + pencils</li>
+  </ul>
+  </div>
+  <p style="font-size:7.6pt; color:#5a5a52;">The 2024 stake campaign took about 6 h on the ice including the ice-thickness survey. Budget a full day for 2026 given every stake is likely to need redrilling. Note the crux crevasse crossing on the route.</p>
+
+  <h4>Field sheet — SOP 4</h4>
+  <table class="f">
+    <tr><th class="c" style="width:12mm">Stake</th><th style="width:20mm">Label found</th><th style="width:20mm">Emergent (cm)</th><th style="width:16mm">Tilt</th><th style="width:20mm">New label</th><th style="width:18mm">New length (cm)</th><th style="width:18mm">In ice (cm)</th><th style="width:30mm">New GPS waypoint</th><th>Notes / photos</th></tr>
+    <tr><td class="c" style="height:10mm">1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="c" style="height:10mm">8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="sig">Recorded by <span></span> Checked by <span></span> Date <span></span></div>
+
+  <div class="note">
+    <span class="lbl">Optional — shallow firn core (accumulation area, ~4450 m)</span>
+    Cores were taken in 2022 and 2024 with a Kovacs Mark III corer at 38.73095 N, 71.38020 E, adjacent to stake NS8. If repeated in 2026: extract in segments, record each segment's length, position along the core, mass on a precision scale, and visual character (rotten ice / wetted ice / refrozen ice lens / cohesive firn / dust lens). Density peaks mark annual horizons — the 2024 core resolved 45 cm w.e. for 2023–24 and 67 cm w.e. for 2022–23 in the top 177 cm. <strong>Note from 2024:</strong> a corer stuck in the ice required boiling water to retrieve, destroying that sample for density. Do not force; back off and re-site.
+  </div>
+</div>
+
+<!-- ============ SOP 5 : THERMISTOR ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">5</span>Glacier ice station — first annual readout</h2>
+  <div class="sop-sub">Installed September 2025 · Campbell CR350 · 2026 is the first data recovery from this installation</div>
+
+  <h3>What is known</h3>
+  <table class="d">
+    <tr><th style="width:40mm">Item</th><th>Detail</th></tr>
+    <tr><td>Logger</td><td><strong>Campbell CR350</strong>, with a <strong>USB-C</strong> connection.</td></tr>
+    <tr><td>Readout kit</td><td><strong>The same Toughbook used for the meteostation.</strong> No separate laptop or software stack is needed — see the connection card below. <span class="tag pri">carry two USB cables</span></td></tr>
+    <tr><td>Removable media</td><td><strong>None — no SD card.</strong> Internal serial flash only, ~50 MB for data. See the memory warning below.</td></tr>
+    <tr><td>Structure</td><td>Mast-mounted station drilled into the ice. Expect to have to <strong>stabilise it, and possibly redrill the mast.</strong></td></tr>
+    <tr><td>Installed</td><td>September 2025, by Stefan Fugger and Ines Dussaillant.</td></tr>
+    <tr><td>Condition</td><td><strong>Unknown, and possibly destroyed</strong> — see the decision tree below.</td></tr>
+  </table>
+
+  <div class="gap">
+    <span class="lbl">Still outstanding before departure — chase this</span>
+    Evan Miles holds <strong>coordinates and the 2025 summary from Stefan / Ines</strong> and was retrieving them as of 18 Aug 2026. Get these into the hands of the field team before they leave, together with the <strong>sensor depth register</strong>: the number of thermistors and each one's depth below the ice surface at installation, plus the emergent mast height at installation. Without the depth register the recovered temperatures cannot be assigned to depths, and a year of data is not interpretable. If the written summary does not contain it, the 2025 expedition photographs (<span class="mono">2509_Sangvor.pdf</span>) may show the assembly before it went in.
+  </div>
+
+  <h3>Connecting to the CR350</h3>
+  <p>Physically trivial; the software side must be set up <strong>on the actual Toughbook before departure</strong>. Driver installation wants administrator rights and sometimes an internet connection — neither exists at 4000 m.</p>
+
+  <table class="d">
+    <tr><th style="width:38mm">Point</th><th>Detail</th></tr>
+    <tr><td>Cable</td><td>USB-C at the logger. <strong>Check the Toughbook's own ports</strong> — rugged laptops are frequently USB-A only, in which case you need an <strong>A-to-C</strong> cable, not the C-to-C that comes to mind. Carry two; they weigh nothing.</td></tr>
+    <tr><td>Power</td><td>The USB port supplies 5 V and powers the logger for communications. <strong>You can therefore connect and download even if the station battery is flat</strong> — a download path, not a repair. Normal field operation still needs 12 V.</td></tr>
+    <tr><td>Software</td><td>LoggerNet, PC400 or RTDAQ. If the Toughbook already runs LoggerNet for the AWS CR1000X, the software is there — you are only adding a second station. The USB driver is device-family specific and may still need installing.</td></tr>
+    <tr><td>Driver</td><td>From within the support software: <strong>Install USB Driver</strong> → select the logger → follow prompts. It then enumerates as a COM port shown as <span class="mono">CR350 series (COMn)</span>.</td></tr>
+    <tr><td><strong>Device type</strong></td><td><strong>In the EZSetup wizard, select "CR300 Series" — there is no "CR350" entry in the list.</strong> The CR350 belongs to the CR300 series. Someone hunting for "CR350" will conclude the software is wrong and waste the visit.</td></tr>
+    <tr><td>Connection type</td><td><strong>Direct Connect</strong>, then choose the COM port.</td></tr>
+    <tr><td>Settings</td><td>All defaults: PakBus address <span class="mono">1</span> · default baud · COM port delay <span class="mono">0</span> · extra response time <span class="mono">0</span> · max time on-line <span class="mono">0</span> · neighbour PakBus address <span class="mono">0</span> · security code <span class="mono">0</span> · encryption key blank.</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">There is no SD card — and the memory may have wrapped</span>
+    <strong>The CR350 has no microSD slot and no CRD: drive.</strong> The eject-button-and-green-LED ritual from the AWS belongs to the CR1000X and does not apply here — do not go looking for a card. Data lives in internal serial flash, of which roughly <strong>50 MB is available for data storage</strong>.<br><br>
+    That capacity is small, and Campbell loggers default to <strong>ring memory</strong>: once full, new records overwrite the oldest. After a year unattended, the record may not reach back to installation. <strong>Check the timestamp of the <em>first</em> record, not only the last</strong>, and note it on the field sheet — it tells you whether the year is complete or whether the table wrapped. If the program used <span class="mono">FillStop</span> instead, logging will have stopped when the table filled, which looks like a dead station but is not.<br><br>
+    <strong>If a security code or PakBus encryption key was set in 2025</strong>, the defaults above will fail and the logger will simply not respond — in the field that is indistinguishable from dead hardware. Get both from Evan / Stefan / Ines before departure.
+  </div>
+
+  <div class="note">
+    <span class="lbl">Fallback — USB host port</span>
+    The CR350 has a second, <em>host</em> USB port that takes a <strong>FAT32-formatted thumb drive</strong>, written by the <span class="mono">TableFile()</span> instruction. This only helps if the running program was written to use it, so check the program rather than plan around it. If a drive is found attached: <strong>do not pull it while the power LED is flashing red</strong> — that indicates read/write activity and removing it can corrupt the drive.
+  </div>
+
+  <h3>On arrival — decide which case you are in, then follow that branch</h3>
+  <p>Photograph the station as found before anything else, then classify. In all three cases, <strong>attempt the download first</strong> — data recovery precedes repair, because a repair can destroy the evidence of what failed.</p>
+  <table class="d" style="table-layout:fixed">
+    <tr><th class="c" style="width:13mm">Case</th><th style="width:46mm">What you find</th><th>Action</th></tr>
+    <tr><td class="c"><strong>A</strong></td><td><strong>Standing and stable</strong></td><td>Download via Toughbook. Service, confirm logging resumes, and leave in place. Record the new depth register.</td></tr>
+    <tr><td class="c"><strong>B</strong></td><td><strong>Standing but loose or leaning</strong> — mast melted out of its hole by a season of ablation</td><td>Download first. Then <strong>stabilise the station: redrill the mast</strong> to a proper depth and re-erect it vertical. Record the new emergent height and full depth register — the sensors are now at different depths than in 2025, and only the on-site measurement can establish that.</td></tr>
+    <tr><td class="c"><strong>C</strong></td><td><strong>Collapsed or destroyed</strong></td><td>Attempt data recovery from the logger regardless of its physical state. Then <strong>bring the station down off the glacier</strong> — do not leave debris or equipment on the ice. Photograph the failure mode thoroughly before disturbing it; that is the only evidence of why it failed.</td></tr>
+  </table>
+
+  <div class="note">
+    <span class="lbl">Plan for case C</span>
+    Case C is considered a realistic outcome, not a remote one. That has two practical consequences: budget the <strong>load capacity to carry the station out</strong> (mast sections, logger, battery, sensors), and carry basic tools for dismantling a partly ice-encased structure. Confirm before departure whether a replacement installation is intended for 2026 — if so, the replacement hardware has to be carried in on the same trip.
+  </div>
+
+  <h3>Procedure</h3>
+  <ol class="steps">
+    <li><strong>Locate and photograph as found</strong> — wide context and close detail. Record how much mast is emergent and whether the station is still vertical.</li>
+    <li><strong>Download the record</strong> via USB-C from the Toughbook. Verify on screen that it is continuous from installation to today, and copy to two media before leaving the site.</li>
+    <li><strong>Measure emergent mast height and surface lowering.</strong> A year of ablation at this elevation is of the order of 2–3 m, so the ice surface will have dropped substantially relative to the station. Measured against the installation record, this is <strong>what converts fixed sensor spacing into actual depths below the current surface</strong> — and it cannot be reconstructed later.</li>
+    <li><strong>Check every channel</strong> returns plausible values. Note any that have failed, flatlined, or are now reading air rather than ice because the surface dropped past them.</li>
+    <li><strong>Record battery state</strong> and replace if there is any doubt about surviving another year.</li>
+    <li><strong>Re-survey the position</strong> — the station moves with the ice. Record a new waypoint and the displacement from the 2025 coordinates.</li>
+    <li><strong>Follow the case A / B / C action</strong> from the table above.</li>
+    <li><strong>Photograph as left</strong> and write down every change, including the full new depth register if the mast was redrilled.</li>
+  </ol>
+
+  <h4>Field sheet — SOP 5</h4>
+  <table class="f">
+    <tr><td class="pre" style="width:38mm">Date / time on site</td><td style="width:28mm"></td><td class="pre" style="width:34mm">Position (new waypoint)</td><td></td></tr>
+    <tr><td class="pre"><strong>Case (A / B / C)</strong></td><td></td><td class="pre">Download successful?</td><td></td></tr>
+    <tr><td class="pre">Emergent mast at install (cm)</td><td></td><td class="pre">Emergent mast now (cm)</td><td></td></tr>
+    <tr><td class="pre">Surface lowering (cm)</td><td></td><td class="pre">Displacement from 2025 (m)</td><td></td></tr>
+    <tr><td class="pre"><strong>FIRST record timestamp</strong> (did it wrap?)</td><td></td><td class="pre">Last record timestamp</td><td></td></tr>
+    <tr><td class="pre">Record continuous throughout?</td><td></td><td class="pre">Thumb drive present / pulled?</td><td></td></tr>
+    <tr><td class="pre">Battery (V) / replaced?</td><td></td><td class="pre">Logging interval</td><td></td></tr>
+    <tr><td class="pre">Failed / suspect channels</td><td colspan="3" style="height:12mm"></td></tr>
+    <tr><td class="pre">Sensor depth register<br>(depth below current surface, per channel)</td><td colspan="3" style="height:26mm"></td></tr>
+    <tr><td class="pre">Re-drilled? New register</td><td colspan="3" style="height:16mm"></td></tr>
+  </table>
+  <div class="sig">Recorded by <span></span> Checked by <span></span></div>
+</div>
+
+<!-- ============ DATA HANDLING ============ -->
+<div class="section">
+  <h2 class="sop"><span class="num">6</span>Data handling, end-of-day routine &amp; close-out</h2>
+  <div class="sop-sub">The rules that keep a hard-won year of data from being lost on the walk out</div>
+
+  <h3>Every evening at camp</h3>
+  <ol class="steps">
+    <li><strong>Copy the day's downloads to two physically separate media</strong>, carried by two different people. One SD card in one bag is a single point of failure for an entire year of record.</li>
+    <li><strong>Export the day's GPS track and waypoints</strong> to GPX and copy alongside the data.</li>
+    <li><strong>Transcribe the field sheets</strong> into the digital metadata tables the same evening, while the shorthand is still legible and the memory is fresh. Keep the paper sheets — they are the primary record.</li>
+    <li><strong>Offload and rename photographs</strong> against the instrument or stake they document.</li>
+    <li><strong>Update the running action list</strong> — anything found broken, missing, ambiguous or deferred. This list becomes the next campaign's equipment order.</li>
+  </ol>
+
+  <h3>Data destinations</h3>
+  <table class="d">
+    <tr><th style="width:44mm">Stream</th><th>Destination and tooling</th></tr>
+    <tr><td>AWS meteorological data</td><td>Nissai station dashboard and processing code — <span class="mono">github.com/joelfiddes/NissaiStation</span>. Generates the full meteorological timeseries report.</td></tr>
+    <tr><td>Ground surface temperature</td><td>GST visualisation tool and data — <span class="mono">github.com/joelfiddes/TajGST</span>. Same toolchain serves the Kizilsu loggers (UNESCO GLOFCA).</td></tr>
+    <tr><td>Mass balance / stakes</td><td>Master sheet <span class="mono">UPDATE_Nissai_massbalance_Sangvor_PAMIR</span>. Add the 2025–26 balance year columns; do not overwrite prior years.</td></tr>
+    <tr><td>Logger metadata</td><td>Master sheet <span class="mono">BLE sangvor loggers</span> — update status, replacements and any changed positions.</td></tr>
+    <tr><td>Field report</td><td><span class="mono">Field_report_Sangvor_2026_09</span>, following the established structure: Summary → Objectives → General Comments → Outcomes (one per SOP) → Appendices.</td></tr>
+  </table>
+
+  <h3>Before leaving the country</h3>
+  <ul class="chk">
+    <li>All raw downloads verified openable on a second machine</li>
+    <li>Copies handed to CRG-TAS counterpart as agreed</li>
+    <li>Field sheets photographed page by page as a backup of the paper record</li>
+    <li>Action list circulated to the team while details are fresh</li>
+    <li>Bridge and access status noted for next year's advance arrangements</li>
+  </ul>
+
+  <h3>Pre-departure action list</h3>
+  <p>Nine items must be resolved before the team leaves. The first six are blocking — without them, data collected in the field cannot be interpreted, or the right equipment will not be carried.</p>
+  <table class="d">
+    <tr><th class="c" style="width:10mm">#</th><th style="width:42mm">Item</th><th>What to obtain or decide</th><th class="c" style="width:18mm">Owner</th></tr>
+    <tr><td class="c">1</td><td><strong>Glacier station coordinates + 2025 summary</strong> (SOP 5)</td><td>Held by Evan Miles from Stefan / Ines, being retrieved as of 18 Aug. Must include the <strong>sensor depth register</strong>, emergent mast height at installation, and <strong>any security code or PakBus encryption key</strong> set on the CR350 — without the latter the logger will not respond and will read as dead. <span class="tag pri">blocking</span></td><td class="c">Evan</td></tr>
+    <tr><td class="c">1b</td><td><strong>Toughbook dry run</strong> (SOP 5)</td><td>Install the CR300-series USB driver and complete the EZSetup wizard on the actual field laptop, ideally against a CR350 on the bench. Confirm the Toughbook's port type and pack <strong>two USB cables of the right type</strong> (A-to-C if the laptop is USB-A only). <span class="tag pri">blocking</span></td><td class="c">Field team</td></tr>
+    <tr><td class="c">2</td><td><strong>Astrocast / AstroNode status</strong> (SOP 1)</td><td>Whether the outage since 15 March 2026 has resolved, and whether Astrocast is still trading. Decide whether a <strong>replacement telemetry path</strong> is to be fitted in 2026 — if so the hardware must be carried in. <span class="tag pri">blocking</span></td><td class="c">Andi</td></tr>
+    <tr><td class="c">3</td><td><strong>Glacier station replacement decision</strong> (SOP 5)</td><td>If case C is found and the station is brought down, is it to be replaced this season? Replacement hardware travels in on the same trip or not at all. <span class="tag pri">blocking</span></td><td class="c">Joel / Evan</td></tr>
+    <tr><td class="c">1d</td><td><strong>GP5W-Shell + 433 MHz dongle</strong> (SOP 2)</td><td>Download <strong>GP5W-Shell</strong> from the GeoPrecision site, install on the field laptop, and <strong>confirm the 433 MHz dongle is in the kit and works</strong>. Confirm the WP100 model (M-Log5W-Rock assumed) and that access code <span class="mono">DE10</span> is still current. Without that dongle, WP100 cannot be read at all — and it is now the only sensor reporting from the suspended ridge. <span class="tag pri">blocking</span></td><td class="c">Field team</td></tr>
+    <tr><td class="c">1c</td><td><strong>Readout phone — confirm the app installs</strong> (SOP 2)</td><td>The APK targets API 19, which <strong>Android 14+ refuses to install</strong>. Confirm the readout phone runs <strong>Android 13 or older</strong>, or prove the ADB bypass works on the actual handset. Then read out a logger on the bench end-to-end. Take a second working phone. If Windows is the fallback, the <strong>BLED112 dongle and driver</strong> must be packed and tested — without that dongle a laptop cannot talk to these loggers at all. <span class="tag pri">blocking</span></td><td class="c">Field team</td></tr>
+    <tr><td class="c">4</td><td>Stream gauge status (SOP 3)</td><td>Whether any stage monitoring was actually installed in 2025 — the 2025 report carries the 2024 text forward unchanged.</td><td class="c">Joel</td></tr>
+    <tr><td class="c">5</td><td>Accumulation stake NS8 (SOP 4)</td><td>The 107 cm figure appears against both the 2024 and 2025 columns in the source tables. Establish which year it belongs to.</td><td class="c">Joel</td></tr>
+    <tr><td class="c">6</td><td>Stake 6 elevation (SOP 4)</td><td>4343 m (2025) vs 4383 m (2024) at a near-identical position — resolve, and re-survey in the field.</td><td class="c">Field team</td></tr>
+  </table>
+
+  <div class="crit">
+    <span class="lbl">Consequence of the telemetry outage — read before packing</span>
+    With no satellite data since March, <strong>nobody knows the current state of the AWS.</strong> The station has been unobserved for roughly half a year. Pack for repair, not just for service: spare battery, desiccant, fuses, cabling, mounting hardware, and spares for any sensor whose failure would end the record. A team that arrives with a laptop and a screwdriver, and finds a station that died in April, loses the year twice over.
+  </div>
+
+  <div class="note">
+    <span class="lbl">Advance logistics that affect the measurements</span>
+    Call ahead to Sangvor (4G available; Nissai has none) to confirm the Nissai stream bridge is standing, and commission its rebuild in advance if not — this was decisive in 2025, when even low flow ran high after a strong melt season. Confirm permitting and local logistics with the CRG-TAS counterpart, and allow the Dushanbe arrival day for OVIR registration.
+  </div>
+</div>
+
+</body>
+</html>

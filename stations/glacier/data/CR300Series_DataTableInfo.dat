@@ -1,0 +1,5 @@
+"TOA5","CR300Series","CR350","11074","CR350.Std.01.07","CPU:CCSG005807.CRB","28358","DataTableInfo"
+"TIMESTAMP","RECORD","DataTableName(1)","DataTableName(2)","SkippedRecord(1)","SkippedRecord(2)","DataRecordSize(1)","DataRecordSize(2)","SecsPerRecord(1)","SecsPerRecord(2)","DataFillDays(1)","DataFillDays(2)","DataFilled(1,1)","DataFilled(2,1)"
+"TS","RN","","","","","records","records","","","days","days","",""
+"","","","","","","","","","","","","",""
+"2026-08-05 11:04:00.226",2,"Table1","Table2",0,0,2522784,106888,3600,86400,105116,106888," 0.1 percent filled"," 0.7 percent filled"

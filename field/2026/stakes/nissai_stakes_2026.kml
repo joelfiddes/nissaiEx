@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2"><Document>
+<name>Nissai ablation stakes 2026</name>
+<description>Positions as left September 2025. Ice flow has moved them; treat as search origins and record a new waypoint at each.</description>
+<Style id="stake"><IconStyle><color>ff3643a3</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon></IconStyle></Style>
+<Style id="stake_acc"><IconStyle><color>ffd4a52c</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>
+<Folder><name>Ablation stakes</name>
+<Placemark>
+<name>NI 1-25</name>
+<description>4068 m | as left Sep 2025 | Sep 2026 projected: ~486 cm emergent | NEAR MELT-OUT | 600cm, 595 in ice; 24-25 abl 481cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.362939,38.741813,4068</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 2-25</name>
+<description>4127 m | as left Sep 2025 | Sep 2026 projected: ~492 cm emergent | NEAR MELT-OUT | 600cm, 600 in ice; 24-25 abl 492cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.365724,38.739660,4127</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 3-25</name>
+<description>4234 m | as left Sep 2025 | Sep 2026 projected: ~370 cm emergent | redrill | 600cm, 600 in ice; 24-25 abl 370cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.369215,38.739268,4234</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 4-25</name>
+<description>4313 m | as left Sep 2025 | Sep 2026 projected: ~332 cm emergent | redrill | 600cm, 588 in ice; 24-25 abl 320cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.372995,38.738883,4313</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 5-25</name>
+<description>4341 m | as left Sep 2025 | Sep 2026 projected: ~308 cm emergent | NEAR MELT-OUT | 400cm, 391 in ice; 24-25 abl 299cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.375987,38.738293,4341</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 6-25</name>
+<description>4343 m | as left Sep 2025 | Sep 2026 projected: ~206 cm emergent | redrill | 400cm, 400 in ice; 24-25 abl 206cm; ELEVATION SUSPECT (4383 in 2024)</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.376728,38.735352,4343</coordinates></Point>
+</Placemark>
+<Placemark>
+<name>NI 7-25</name>
+<description>4387 m | as left Sep 2025 | Sep 2026 projected: ~280 cm emergent | NEAR MELT-OUT | 400cm, 391 in ice; 24-25 abl 271cm</description>
+<styleUrl>#stake</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.381125,38.739402,4387</coordinates></Point>
+</Placemark>
+</Folder>
+<Folder><name>Accumulation stake</name>
+<Placemark>
+<name>NS8-24</name>
+<description>4450 m | as left Sep 2025 | Accumulation stake, reinforced; 2024 firn core site</description>
+<styleUrl>#stake_acc</styleUrl>
+<Point><altitudeMode>absolute</altitudeMode><coordinates>71.380200,38.730950,4450</coordinates></Point>
+</Placemark>
+</Folder>
+</Document></kml>

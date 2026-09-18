@@ -1,0 +1,3 @@
+# build outputs — regenerate with mkgeo.py / mkmaps.py
+geo/
+map2_hike.png

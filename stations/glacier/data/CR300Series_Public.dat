@@ -1,0 +1,5 @@
+"TOA5","CR300Series","CR350","11074","CR350.Std.01.07","CPU:CCSG005807.CRB","28358","Public"
+"TIMESTAMP","RECORD","BattV","PTemp_C","Temp1","Temp2","Temp3","Temp4","Temp5","Temp6","Temp7","Temp8"
+"TS","RN","Volts","Deg C","Deg C","Deg C","Deg C","Deg C","Deg C","Deg C","Deg C","Deg C"
+"","","","","","","","","","","",""
+"2026-09-06 12:34:42.02",277020,13.86936,14.54605,-0.13,-0.09,-0.16,-0.2,0.04,0,0,11.91
