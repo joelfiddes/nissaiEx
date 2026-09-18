@@ -36,9 +36,18 @@ the 16th, collapsing again by evening): the panel is still generating a little
 but no longer keeping up. Consistent with snow cover or shading at midwinter sun
 angles, draining the battery to the CR350's cutoff.
 
+On restart in August 2026 the battery recovered immediately to 13–14 V and has
+held since, so the battery and panel are both serviceable — this is a winter
+energy-budget failure, not failed hardware.
+
 **Before next winter**: panel angle and orientation against snow accumulation,
 battery capacity sized for the dark months, and ideally a low-voltage telemetry
 alert — a three-week decline is plenty of warning if anyone can see it.
+
+![overview](../../reports/nissai_glacier_2026.png)
+
+`../../reports/nissai_glacier_2026.png`, from
+`scripts/plot_glacier.py`.
 
 ## Temperature profile
 
