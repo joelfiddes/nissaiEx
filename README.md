@@ -1,8 +1,13 @@
-# Sangvor / Nissai — Western Pamir, Tajikistan
+# nissaiEx — Nissai / Sangvor, Western Pamir, Tajikistan
 
-Everything for the Sangvor field site in one place: the automatic weather
+Everything for the Nissai field site in one place: the automatic weather
 station, the glacier thermistor string, the ground-surface-temperature loggers,
 field materials, docs and reports.
+
+Named for the glacier and catchment rather than the district, because
+`sangvor*` is heavily overloaded — `~/data/sangvor_station`,
+`~/data/SANGVOR_LOGGERS`, `TajGST/data/sangvor`, and a `sangvorGST` folder in
+Drive all mean different things. `nissaiEx` greps clean.
 
 Upper Khingob watershed, Sangvor district. Deployed September 2021 under SNF
 "Precipitation in extreme environments" (179130) and the SDC-funded
