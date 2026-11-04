@@ -3,6 +3,10 @@
 38.74287 N, 71.35392 E, 3909 m asl. 10-minute records, 41 variables,
 2021-09-22 → 2026-09-07 (253,283 records).
 
+![Nissai AWS topographic map](../../reports/nissai_aws_topo.png)
+
+The map comes from `scripts/plot_site_maps.py`, on the Copernicus GLO-30 DEM.
+
 `data/water_years/nissai_meteodata_WY<year>.csv` — water year runs 1 Oct → 30
 Sep, labelled by the closing year.
 

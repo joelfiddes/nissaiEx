@@ -23,6 +23,10 @@ CROMO-ADAPT project — WSL/SLF, UNIFR, EPFL CRYOS and CRG Dushanbe.
 
 Full AWS sensor list and site description: `docs/sangvor_factsheet.pdf`.
 
+Maps: [AWS topography](reports/nissai_aws_topo.png) ·
+[GST logger network](reports/nissai_gst_map.png) — coordinates and data links
+for every logger in [`stations/gst/`](stations/gst/README.md).
+
 ## Layout
 
 ```
