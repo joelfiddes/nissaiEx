@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: >-
+  If you use these data, please cite them as below and acknowledge the funders
+  (SNF project 179130 and the SDC-funded CROMO-ADAPT project).
+title: "nissaiEx: Nissai / Sangvor field-site observations, Western Pamir, Tajikistan"
+type: dataset
+authors:
+  - family-names: Fiddes
+    given-names: Joel
+repository-code: "https://github.com/joelfiddes/nissaiEx"
+url: "https://github.com/joelfiddes/nissaiEx"
+license: CC-BY-4.0
+keywords:
+  - automatic weather station
+  - ground surface temperature
+  - glacier
+  - Pamir
+  - Tajikistan

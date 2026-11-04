@@ -84,6 +84,21 @@ format, and these are GeoPrecision FG2 files. **Moving them here requires fixing
 that parser to sniff the format instead of the path.** Until then TajGST remains
 authoritative for GST.
 
+## Licence and citation
+
+Data, documentation and code in this repository are released under
+[CC-BY-4.0](LICENSE). You may reuse them freely provided you give credit.
+
+Please cite:
+
+> Fiddes, J. *nissaiEx: Nissai / Sangvor field-site observations, Western
+> Pamir, Tajikistan.* https://github.com/joelfiddes/nissaiEx
+
+and acknowledge the Swiss National Science Foundation project
+"Precipitation in extreme environments" (179130) and the SDC-funded
+CROMO-ADAPT project, carried out by WSL/SLF, UNIFR, EPFL CRYOS and CRG
+Dushanbe. Machine-readable citation metadata is in `CITATION.cff`.
+
 ## History
 
 This repo consolidates work previously split across `nissaiStation` and
